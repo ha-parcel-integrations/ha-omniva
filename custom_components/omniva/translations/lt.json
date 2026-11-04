@@ -1,0 +1,157 @@
+{
+  "title": "Omniva",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Nustatyti Omniva",
+        "description": "Su sekimo kodais centras sukuriamas iš karto. Siuntinius pridėsite vėliau per integracijos parinktis arba paslaugą `omniva.track_parcel`.",
+        "menu_options": {
+          "account": "Paskyra (automatinis importas)",
+          "tracking": "Sekimo kodai"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Omniva jau sukonfigūruota.",
+      "account_unavailable": "Prisijungimas su Omniva paskyra dar neveikia, nes jo negalima išbandyti be Smart-ID ar Mobile-ID iš Estijos, Latvijos ar Lietuvos. Jei galite padėti, žr. [šią temą]({issue_url}). Siuntų sekimas pagal kodą jau veikia: pasirinkite **Sekimo kodai**."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Omniva parinktys",
+        "menu_options": {
+          "parcels": "Siuntos",
+          "settings": "Nustatymai"
+        },
+        "sections": {
+          "parcels": {
+            "name": "Siuntiniai",
+            "data": {
+              "add": "Pridėti siuntinį",
+              "remove": "Pašalinti siuntinius"
+            },
+            "data_description": {
+              "add": "Įveskite Omniva sekimo kodą, kad pradėtumėte sekti siuntinį. Jį rasite siuntimo patvirtinime arba pranešime apie nepristatytą siuntą."
+            }
+          },
+          "delivered": {
+            "name": "Pristatyti siuntiniai",
+            "data": {
+              "delivered_filter_type": "Filtruoti pagal",
+              "delivered_filter_amount": "Kiekis"
+            },
+            "data_description": {
+              "delivered_filter_type": "Rodyti per pastarąsias X dienas pristatytus siuntinius arba apriboti iki X naujausių.",
+              "delivered_filter_amount": "Rodytinų dienų arba siuntinių skaičius."
+            }
+          },
+          "history": {
+            "name": "Siuntinio istorija",
+            "data": {
+              "include_history": "Įtraukti būsenų istoriją"
+            },
+            "data_description": {
+              "include_history": "Prideda kiekvienam siuntiniui istorijos atributą, kuriame išvardyti visi sekimo įvykiai (laiko žyma, būsena, originalus tekstas). Numatytai išjungta."
+            }
+          }
+        }
+      },
+      "parcels": {
+        "title": "Siuntos",
+        "data": {
+          "tracking_codes": "Sekimo kodai"
+        }
+      },
+      "settings": {
+        "title": "Nustatymai",
+        "data": {
+          "delivered_filter_type": "Pristatytos siuntos: filtruoti pagal",
+          "delivered_filter_amount": "Pristatytos siuntos: kiekis",
+          "include_history": "Įtraukti būsenos istoriją"
+        }
+      }
+    },
+    "error": {
+      "invalid_tracking_code": "Tai nepanašu į Omniva sekimo kodą.",
+      "already_tracked": "Šis siuntinys jau sekamas."
+    }
+  },
+  "selector": {
+    "delivered_filter_type": {
+      "options": {
+        "days": "Dienos",
+        "parcels": "Siuntų skaičius"
+      }
+    }
+  },
+  "services": {
+    "track_parcel": {
+      "name": "Sekti siuntinį",
+      "description": "Pradeda sekti siuntinį pagal jo Omniva sekimo kodą.",
+      "fields": {
+        "tracking_code": {
+          "name": "Sekimo kodas",
+          "description": "Omniva sekimo kodas."
+        }
+      }
+    },
+    "untrack_parcel": {
+      "name": "Nebesekti siuntinio",
+      "description": "Sustabdo siuntinio sekimą pagal jo Omniva sekimo kodą.",
+      "fields": {
+        "tracking_code": {
+          "name": "Sekimo kodas",
+          "description": "Omniva sekimo kodas, kurio sekimą reikia sustabdyti."
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "trigger_type": {
+      "parcel_registered": "Siuntinys užregistruotas",
+      "parcel_status_changed": "Siuntinio būsena pasikeitė",
+      "parcel_delivered": "Siuntinys pristatytas",
+      "parcel_delivery_time_changed": "Numatomas siuntinio pristatymo laikas pasikeitė"
+    }
+  },
+  "entity": {
+    "button": {
+      "refresh": {
+        "name": "Atnaujinti"
+      }
+    },
+    "calendar": {
+      "deliveries": {
+        "name": "Pristatymai"
+      }
+    },
+    "sensor": {
+      "incoming_parcels": {
+        "name": "Gaunamos siuntos",
+        "unit_of_measurement": "siuntos"
+      },
+      "next_delivery": {
+        "name": "Kitas pristatymas"
+      },
+      "en_route_to_pickup_point": {
+        "name": "Pakeliui į atsiėmimo punktą",
+        "unit_of_measurement": "siuntos"
+      },
+      "awaiting_pickup": {
+        "name": "Paruošta atsiimti",
+        "unit_of_measurement": "siuntos"
+      },
+      "delivered_parcels": {
+        "name": "Pristatytos siuntos",
+        "unit_of_measurement": "siuntos"
+      },
+      "last_update": {
+        "name": "Paskutinis sėkmingas atnaujinimas"
+      },
+      "parcel": {
+        "name": "Siunta {barcode}"
+      }
+    }
+  }
+}

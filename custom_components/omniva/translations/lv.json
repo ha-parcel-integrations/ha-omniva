@@ -1,0 +1,157 @@
+{
+  "title": "Omniva",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Iestatīt Omniva",
+        "description": "Ar izsekošanas kodiem centrmezgls tiek izveidots uzreiz. Sūtījumus pievienosi vēlāk, izmantojot integrācijas opcijas vai pakalpojumu `omniva.track_parcel`.",
+        "menu_options": {
+          "account": "Konts (automātisks imports)",
+          "tracking": "Izsekošanas kodi"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Omniva jau ir iestatīts.",
+      "account_unavailable": "Pieteikšanās ar Omniva kontu vēl nedarbojas, jo to nevar pārbaudīt bez Smart-ID vai Mobile-ID no Igaunijas, Latvijas vai Lietuvas. Ja vari palīdzēt, skati [šo pieteikumu]({issue_url}). Sūtījumu izsekošana pēc koda jau darbojas: izvēlies **Izsekošanas kodi**."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Omniva opcijas",
+        "menu_options": {
+          "parcels": "Sūtījumi",
+          "settings": "Iestatījumi"
+        },
+        "sections": {
+          "parcels": {
+            "name": "Sūtījumi",
+            "data": {
+              "add": "Pievienot sūtījumu",
+              "remove": "Noņemt sūtījumus"
+            },
+            "data_description": {
+              "add": "Ievadi Omniva izsekošanas kodu, lai sāktu sūtījuma izsekošanu. To atradīsi nosūtīšanas apstiprinājumā vai piegādes paziņojumā."
+            }
+          },
+          "delivered": {
+            "name": "Piegādātie sūtījumi",
+            "data": {
+              "delivered_filter_type": "Filtrēt pēc",
+              "delivered_filter_amount": "Daudzums"
+            },
+            "data_description": {
+              "delivered_filter_type": "Rādīt pēdējo X dienu laikā piegādātos sūtījumus vai ierobežot līdz X jaunākajiem.",
+              "delivered_filter_amount": "Rādāmo dienu vai sūtījumu skaits."
+            }
+          },
+          "history": {
+            "name": "Sūtījuma vēsture",
+            "data": {
+              "include_history": "Iekļaut statusu vēsturi"
+            },
+            "data_description": {
+              "include_history": "Pievieno katram sūtījumam vēstures atribūtu, kurā uzskaitīts katrs izsekošanas notikums (laika zīmogs, statuss, oriģinālais teksts). Pēc noklusējuma izslēgts."
+            }
+          }
+        }
+      },
+      "parcels": {
+        "title": "Sūtījumi",
+        "data": {
+          "tracking_codes": "Izsekošanas kodi"
+        }
+      },
+      "settings": {
+        "title": "Iestatījumi",
+        "data": {
+          "delivered_filter_type": "Piegādātie sūtījumi: filtrēt pēc",
+          "delivered_filter_amount": "Piegādātie sūtījumi: daudzums",
+          "include_history": "Iekļaut statusa vēsturi"
+        }
+      }
+    },
+    "error": {
+      "invalid_tracking_code": "Tas neizskatās pēc Omniva izsekošanas koda.",
+      "already_tracked": "Šis sūtījums jau tiek izsekots."
+    }
+  },
+  "selector": {
+    "delivered_filter_type": {
+      "options": {
+        "days": "Dienas",
+        "parcels": "Paku skaits"
+      }
+    }
+  },
+  "services": {
+    "track_parcel": {
+      "name": "Izsekot sūtījumu",
+      "description": "Sāk sūtījuma izsekošanu pēc tā Omniva izsekošanas koda.",
+      "fields": {
+        "tracking_code": {
+          "name": "Izsekošanas kods",
+          "description": "Omniva izsekošanas kods."
+        }
+      }
+    },
+    "untrack_parcel": {
+      "name": "Pārtraukt sūtījuma izsekošanu",
+      "description": "Pārtrauc sūtījuma izsekošanu pēc tā Omniva izsekošanas koda.",
+      "fields": {
+        "tracking_code": {
+          "name": "Izsekošanas kods",
+          "description": "Omniva izsekošanas kods, kuram jāpārtrauc izsekošana."
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "trigger_type": {
+      "parcel_registered": "Sūtījums tika reģistrēts",
+      "parcel_status_changed": "Sūtījuma statuss mainījās",
+      "parcel_delivered": "Sūtījums tika piegādāts",
+      "parcel_delivery_time_changed": "Sūtījuma paredzamais piegādes laiks mainījās"
+    }
+  },
+  "entity": {
+    "button": {
+      "refresh": {
+        "name": "Atjaunināt"
+      }
+    },
+    "calendar": {
+      "deliveries": {
+        "name": "Piegādes"
+      }
+    },
+    "sensor": {
+      "incoming_parcels": {
+        "name": "Ienākošās pakas",
+        "unit_of_measurement": "pakas"
+      },
+      "next_delivery": {
+        "name": "Nākamā piegāde"
+      },
+      "en_route_to_pickup_point": {
+        "name": "Ceļā uz saņemšanas punktu",
+        "unit_of_measurement": "pakas"
+      },
+      "awaiting_pickup": {
+        "name": "Gatavs saņemšanai",
+        "unit_of_measurement": "pakas"
+      },
+      "delivered_parcels": {
+        "name": "Piegādātās pakas",
+        "unit_of_measurement": "pakas"
+      },
+      "last_update": {
+        "name": "Pēdējā veiksmīgā atjaunināšana"
+      },
+      "parcel": {
+        "name": "Paka {barcode}"
+      }
+    }
+  }
+}

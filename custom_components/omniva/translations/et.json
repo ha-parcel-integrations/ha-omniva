@@ -1,0 +1,157 @@
+{
+  "title": "Omniva",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Seadista Omniva",
+        "description": "Jälgimiskoodidega luuakse jaotur kohe. Lisa pakid hiljem integratsiooni valikute või teenuse `omniva.track_parcel` kaudu.",
+        "menu_options": {
+          "account": "Konto (automaatne import)",
+          "tracking": "Jälgimiskoodid"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Omniva on juba seadistatud.",
+      "account_unavailable": "Omniva kontoga sisselogimine ei tööta veel, sest seda ei saa testida ilma Eesti, Läti või Leedu Smart-ID või Mobiil-ID-ta. Kui saad aidata, vaata [seda teemat]({issue_url}). Pakkide jälgimine koodi järgi juba töötab: vali **Jälgimiskoodid**."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Omniva valikud",
+        "menu_options": {
+          "parcels": "Saadetised",
+          "settings": "Seaded"
+        },
+        "sections": {
+          "parcels": {
+            "name": "Pakid",
+            "data": {
+              "add": "Lisa pakk",
+              "remove": "Eemalda pakke"
+            },
+            "data_description": {
+              "add": "Sisesta Omniva jälgimiskood, et alustada paki jälgimist. Selle leiad saatmise kinnituselt või kättetoimetamise teatiselt."
+            }
+          },
+          "delivered": {
+            "name": "Kohale toimetatud pakid",
+            "data": {
+              "delivered_filter_type": "Filtreeri",
+              "delivered_filter_amount": "Kogus"
+            },
+            "data_description": {
+              "delivered_filter_type": "Kuva viimase X päeva jooksul kohale toimetatud pakid või piirdu X uusimaga.",
+              "delivered_filter_amount": "Kuvatavate päevade või pakkide arv."
+            }
+          },
+          "history": {
+            "name": "Paki ajalugu",
+            "data": {
+              "include_history": "Kaasa oleku ajalugu"
+            },
+            "data_description": {
+              "include_history": "Lisab iga paki juurde ajaloo atribuudi, mis loetleb kõik jälgimissündmused (ajatempel, olek, algne tekst). Vaikimisi väljas."
+            }
+          }
+        }
+      },
+      "parcels": {
+        "title": "Saadetised",
+        "data": {
+          "tracking_codes": "Jälgimiskoodid"
+        }
+      },
+      "settings": {
+        "title": "Seaded",
+        "data": {
+          "delivered_filter_type": "Kohale toimetatud saadetised: filtreeri alusel",
+          "delivered_filter_amount": "Kohale toimetatud saadetised: kogus",
+          "include_history": "Kaasa oleku ajalugu"
+        }
+      }
+    },
+    "error": {
+      "invalid_tracking_code": "See ei näi olevat Omniva jälgimiskood.",
+      "already_tracked": "Seda pakki juba jälgitakse."
+    }
+  },
+  "selector": {
+    "delivered_filter_type": {
+      "options": {
+        "days": "Päevad",
+        "parcels": "Pakkide arv"
+      }
+    }
+  },
+  "services": {
+    "track_parcel": {
+      "name": "Jälgi pakki",
+      "description": "Alustab paki jälgimist selle Omniva jälgimiskoodi järgi.",
+      "fields": {
+        "tracking_code": {
+          "name": "Jälgimiskood",
+          "description": "Omniva jälgimiskood."
+        }
+      }
+    },
+    "untrack_parcel": {
+      "name": "Lõpeta paki jälgimine",
+      "description": "Lõpetab paki jälgimise selle Omniva jälgimiskoodi järgi.",
+      "fields": {
+        "tracking_code": {
+          "name": "Jälgimiskood",
+          "description": "Omniva jälgimiskood, mille jälgimine tuleb lõpetada."
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "trigger_type": {
+      "parcel_registered": "Pakk registreeriti",
+      "parcel_status_changed": "Paki olek muutus",
+      "parcel_delivered": "Pakk toimetati kohale",
+      "parcel_delivery_time_changed": "Paki eeldatav kättetoimetamise aeg muutus"
+    }
+  },
+  "entity": {
+    "button": {
+      "refresh": {
+        "name": "Värskenda"
+      }
+    },
+    "calendar": {
+      "deliveries": {
+        "name": "Tarned"
+      }
+    },
+    "sensor": {
+      "incoming_parcels": {
+        "name": "Saabuvad pakid",
+        "unit_of_measurement": "pakki"
+      },
+      "next_delivery": {
+        "name": "Järgmine tarne"
+      },
+      "en_route_to_pickup_point": {
+        "name": "Teel väljastuspunkti",
+        "unit_of_measurement": "pakki"
+      },
+      "awaiting_pickup": {
+        "name": "Väljastuspunktis ootamas",
+        "unit_of_measurement": "pakki"
+      },
+      "delivered_parcels": {
+        "name": "Kohale toimetatud pakid",
+        "unit_of_measurement": "pakki"
+      },
+      "last_update": {
+        "name": "Viimane õnnestunud värskendus"
+      },
+      "parcel": {
+        "name": "Pakk {barcode}"
+      }
+    }
+  }
+}
