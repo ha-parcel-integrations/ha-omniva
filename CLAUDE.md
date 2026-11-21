@@ -38,10 +38,11 @@ you act in one of these areas:
 - **Events and `_known_state` are built from the unfiltered delivered list.**
   The "keep N days / N parcels" option only trims `coordinator.delivered`; a
   parcel it leaves out must still fire `_parcel_delivered`.
-- **The optional pickup-point summaries are a pair.** A carrier that can tell
-  a parcel is destined for a pickup point exposes
-  `en_route_to_pickup_point` for `pickup is true` before it arrives; one that
-  can reach `ParcelStatus.AT_PICKUP_POINT` also exposes `awaiting_pickup`.
+- **The pickup-point summaries are a pair.** A carrier that can deliver to a
+  pickup point or locker exposes both `en_route_to_pickup_point` and
+  `awaiting_pickup`, even before a real parcel has shown the status or flag
+  (they read 0 until then; record it in `PENDING_*`). A carrier without pickup
+  points exposes neither and keeps `pickup` constantly False.
   See *Parcel contract* in `CONVENTIONS.md`. Say "pickup point", not
   "ServicePoint"/"parcel shop"/"locker", for the generic concept; the
   example carrier demonstrates both canonical sensors.
@@ -72,8 +73,10 @@ you act in one of these areas:
 - **A return wins over what the scans read like.** From the moment a return is
   under way, the parcel's `status` reads `returning`, because any delivery reaches
   the sender. In `history` only a delivery is rewritten; other scans keep their own
-  stage. Only a `problem` still shows through, and a cancelled return ends this. Such a parcel never counts as delivered, so it keeps being polled
-  until the user removes it. A deliberate consequence, not a bug.
+  stage. Only a `problem` still shows through, and a cancelled return ends this.
+  Contract says a return that is back at the sender is `delivered`; here it never
+  is, because no completed return has been seen yet to confirm the `RETURNED` state.
+  Such a parcel keeps being polled until the user removes it.
 - **`raw_status` and `history` carry the carrier's own wording**, which is free
   text. `raw` is the full reply, untrimmed, except for opening codes: those are
   removed in `api.py` before anything can store them.
@@ -81,10 +84,15 @@ you act in one of these areas:
   because scan wording, sites and parameters can identify a recipient. Warnings
   log codes and key names only.
 - **`pickup` and `pickup_point`.** `pickup` is the parcel's own delivery channel or
-  chosen site, so it is known before arrival; a return is never `pickup`.
-  `pickup_point` is only set while waiting and after collection, only from a site
-  a recipient can collect from. A parcel machine further back in the scans can be
-  the sender's drop-off, and a home address must never show.
+  chosen site, else the parcel having reached a pickup point in its scans, so it is
+  known before arrival and stays true after collection and while returning.
+  `pickup_point` is filled whenever `pickup` is true, only from a site a recipient
+  can collect from; a scan site only counts while the scans are about waiting or
+  collection. A parcel machine further back in the scans can be the sender's
+  drop-off, and a home address must never show. A returning parcel is not counted
+  by `en_route_to_pickup_point`. Omniva delivers to parcel machines and post
+  offices, so both pickup sensors exist; the missing real-parcel evidence is
+  tracked in the open help-wanted issues.
 - **`None` on purpose:** `sender`, `receiver`, `planned_from`, `planned_to`,
   `weight`, `dimensions`; the carrier gives none of them, so the calendar and
   `next_delivery` stay empty. `url` picks the tracker of the destination country.

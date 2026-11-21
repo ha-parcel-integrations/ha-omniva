@@ -504,9 +504,8 @@ def test_delivered_after_a_return_started_is_returning():
     assert parcel["status"] == ParcelStatus.RETURNING
     assert parcel["delivered"] is False
     assert parcel["delivered_at"] is None
-    # A return's site is the sender's, not a pickup point the recipient can use.
-    assert parcel["pickup"] is False
-    assert parcel["pickup_point"] is None
+    assert parcel["pickup"] is True
+    assert parcel["pickup_point"] == "Example parcel_machine"
     assert parcel["history"][-1]["status"] == ParcelStatus.RETURNING
 
 
@@ -555,7 +554,7 @@ def test_problem_on_the_way_back_still_shows():
     assert parcel["status"] == ParcelStatus.PROBLEM
 
     raw.update(currentDeliveryChannel="PARCEL_MACHINE", deliveryLocation=place())
-    assert normalize_parcel(raw)["pickup"] is False
+    assert normalize_parcel(raw)["pickup"] is True
 
 
 def test_cancelled_return_delivers_to_the_recipient():
@@ -778,13 +777,21 @@ def test_a_home_address_is_never_the_pickup_point():
     assert normalize_parcel(raw)["pickup_point"] is None
 
 
-def test_no_pickup_point_while_on_the_way_but_pickup_is_known():
-    """The en-route sensor reads ``pickup`` before the parcel arrives."""
+def test_pickup_point_is_named_while_on_the_way():
+    """The chosen site is known before the parcel arrives."""
     raw = in_progress_sample()
     raw["currentDeliveryChannel"] = "PARCEL_MACHINE"
     raw["deliveryLocation"] = place()
     parcel = normalize_parcel(raw)
     assert parcel["status"] == ParcelStatus.IN_TRANSIT
+    assert parcel["pickup"] is True
+    assert parcel["pickup_point"] == "Example parcel_machine"
+
+
+def test_pickup_point_stays_unnamed_on_the_way_without_a_chosen_site():
+    raw = in_progress_sample()
+    raw["currentDeliveryChannel"] = "PARCEL_MACHINE"
+    parcel = normalize_parcel(raw)
     assert parcel["pickup"] is True
     assert parcel["pickup_point"] is None
 
