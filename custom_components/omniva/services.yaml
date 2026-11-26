@@ -5,11 +5,29 @@ track_parcel:
       example: "CC000000000EE"
       selector:
         text:
+    contents:
+      required: false
+      example: "Running shoes"
+      selector:
+        text:
 
 untrack_parcel:
   fields:
     tracking_code:
       required: true
       example: "CC000000000EE"
+      selector:
+        text:
+
+update_contents:
+  fields:
+    tracking_code:
+      required: true
+      example: "CC000000000EE"
+      selector:
+        text:
+    contents:
+      required: false
+      example: "Running shoes"
       selector:
         text:

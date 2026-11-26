@@ -31,6 +31,7 @@ async def test_diagnostics_redacts_and_counts(hass):
         )
     )
     parcel = normalize_parcel(raw, include_history=True)
+    parcel["contents"] = "Running shoes"
     entry.runtime_data.coordinator.data = [parcel]
     entry.runtime_data.coordinator.delivered = [
         normalize_parcel(envelope(state="DELIVERED", destination=place()))
@@ -51,7 +52,7 @@ async def test_diagnostics_redacts_and_counts(hass):
     }
     assert result["entry_options"]["parcels"][0]["tracking_code"] == "**REDACTED**"
     incoming = result["incoming"][0]
-    for field in ("barcode", "raw_status", "pickup_point", "url", "raw"):
+    for field in ("barcode", "contents", "raw_status", "pickup_point", "url", "raw"):
         assert incoming[field] == "**REDACTED**"
     assert incoming["history"][0]["raw_status"] == "**REDACTED**"
     # non-identifying fields survive, or the diagnostics would be useless
@@ -63,6 +64,7 @@ async def test_diagnostics_redacts_and_counts(hass):
         ACTIVE_CODE,
         "Example",
         "Jane Doe",
+        "Running shoes",
         "+37200000000",
         "00000",
         "Wording",

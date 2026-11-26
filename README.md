@@ -37,6 +37,7 @@ A custom Home Assistant integration that tracks your [Omniva](https://www.omniva
 - Per-parcel sensor with the canonical status (`registered` / `in_transit` / `out_for_delivery` / `delivered` / …), the carrier's own status text, the pickup point and a tracking deep-link
 - Summary sensors: incoming parcels, parcels on their way to or waiting at a pickup point, recently delivered parcels
 - `omniva.track_parcel` / `omniva.untrack_parcel` services, so a dashboard button can add a parcel
+- A `contents` field on every parcel, set in your own words with the `omniva.update_contents` service or the `contents` field of `omniva.track_parcel`; it titles the calendar event and shows on the next-delivery sensor
 - Events + device triggers for no-code automations (parcel registered, status changed, delivered)
 - Opt-in per-parcel status history
 - Manual refresh button and a diagnostic last-update sensor
@@ -158,8 +159,11 @@ Every payload is the full normalised parcel plus the hub's `device_id`. Events a
 
 | Service | Fields | Description |
 |---|---|---|
-| `omniva.track_parcel` | `tracking_code` | Start tracking a parcel |
+| `omniva.track_parcel` | `tracking_code`, `contents` (optional) | Start tracking a parcel, optionally noting what is in it |
 | `omniva.untrack_parcel` | `tracking_code` | Stop tracking a parcel |
+| `omniva.update_contents` | `tracking_code`, `contents` (optional) | Set, replace or clear (empty text) a note on what is in a parcel, tracked or not |
+
+The `contents` text is stored locally, never sent to Omniva, and fills the parcel's `contents` field; it titles the parcel's calendar event and shows on the next-delivery sensor.
 
 ## Examples
 
